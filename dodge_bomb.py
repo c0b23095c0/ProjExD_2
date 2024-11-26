@@ -28,20 +28,29 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("fig/pg_bg.jpg")    
     kk_img = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9)
+    kkcry_img = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 0.9)
     bb_img = pg.Surface((20,20))
     pg.draw.circle(bb_img, (255, 0, 0), (10, 10), 10)
     bb_img.set_colorkey((0,0,0))
+    bbg_img = pg.Surface((1100, 650))
+    pg.draw.rect(bbg_img, (0,0,0),(0,0,1100,650), 0)
+    bbg_img.set_alpha(128)
     kk_rct = kk_img.get_rect()
     kk_rct.center = 300, 200
     bb_rct = bb_img.get_rect()
     bb_rct.centerx = (random.randint(0,WIDTH))
     bb_rct.centery = (random.randint(0,HEIGHT))
+    kkcry_rct1 = kkcry_img.get_rect()
+    kkcry_rct1.center = 350, HEIGHT/2
+    kkcry_rct2 = kkcry_img.get_rect()
+    kkcry_rct2.center = WIDTH-350, HEIGHT/2
     clock = pg.time.Clock()
     tmr = 0
     vx = +5
     vy = +5
     GO = pg.font.Font(None, 80)
     txt = GO.render("GameOver", True, (255, 0, 0))
+    txt_rect = txt.get_rect(center=(WIDTH/2, HEIGHT/2))
     DELTA = {pg.K_UP:(0, -5), pg.K_DOWN:(0, +5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(+5, 0)}
     while True:
         for event in pg.event.get():
@@ -68,7 +77,10 @@ def main():
         bb_rct.move_ip(vx, vy)
         screen.blit(bb_img, bb_rct)
         if kk_rct.colliderect(bb_rct):
-            screen.blit(txt, [(WIDTH/2)-150, (HEIGHT/2)-40])
+            screen.blit(bbg_img, [0,0])
+            screen.blit(txt, txt_rect)
+            screen.blit(kkcry_img, kkcry_rct1)
+            screen.blit(kkcry_img, kkcry_rct2)
             pg.display.update()
             time.sleep(5)
             return -1
