@@ -53,6 +53,20 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
         bb_imgs.append(bb_img)
     return bb_imgs, accs
 
+def get_kk_img(sum_mv: tuple[int, int]) -> pg.Surface:
+    kk1 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9)
+    kk2 = pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 0.9)
+    kk3 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 90, 0.9)
+    kk3 = pg.transform.flip(kk3, -1, 1)
+    kk4 = pg.transform.flip(kk2, 1, 1)
+    kk5 = pg.transform.flip(kk1, 1, 1)
+    kk6 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 45, 0.9)
+    kk7 = pg.transform.flip(kk6, 1, 1)
+    kk8 = pg.transform.rotozoom(kk3, 180, 1)
+    kkk = kk1
+    VEC = {(0, 0): kkk, (0, -5):kk1, (-5, -5):kk2, (0, -5):kk3, (+5, -5):kk4, (+5, 0):kk5, (-5, +5):kk6, (+5, +5):kk7, (0, +5):kk8}
+    return VEC[sum_mv]
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -82,7 +96,7 @@ def main():
         screen.blit(bg_img, [0, 0]) 
     
         bb_imgs, bb_accs = init_bb_imgs()
-        bb_img = bb_imgs[min(tmr//500, 9)]
+        bb_img = bb_imgs[min(tmr//100, 9)]
 
 
         key_lst = pg.key.get_pressed()
@@ -91,6 +105,9 @@ def main():
             if key_lst[key]:
                 sum_mv[0] += tpl[0]
                 sum_mv[1] += tpl[1]
+
+        kk_img = get_kk_img((0,0))
+        kk_img = get_kk_img(tuple(sum_mv))
         kk_rct.move_ip(sum_mv)
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
@@ -101,8 +118,8 @@ def main():
             vx *= -1
         if bb_TF[1] == False:
             vy *= -1
-        avx = vx*bb_accs[min(tmr//500, 9)]
-        avy = vy*bb_accs[min(tmr//500, 9)]
+        avx = vx*bb_accs[min(tmr//100, 9)]
+        avy = vy*bb_accs[min(tmr//100, 9)]
         bb_rct.move_ip(avx, avy)
         screen.blit(bb_img, bb_rct)
         if kk_rct.colliderect(bb_rct):
