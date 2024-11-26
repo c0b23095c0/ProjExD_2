@@ -40,6 +40,8 @@ def main():
     tmr = 0
     vx = +5
     vy = +5
+    GO = pg.font.Font(None, 80)
+    txt = GO.render("GameOver", True, (255, 0, 0))
     DELTA = {pg.K_UP:(0, -5), pg.K_DOWN:(0, +5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(+5, 0)}
     while True:
         for event in pg.event.get():
@@ -66,6 +68,9 @@ def main():
         bb_rct.move_ip(vx, vy)
         screen.blit(bb_img, bb_rct)
         if kk_rct.colliderect(bb_rct):
+            screen.blit(txt, [(WIDTH/2)-150, (HEIGHT/2)-40])
+            pg.display.update()
+            time.sleep(5)
             return -1
         pg.display.update()
         tmr += 1
