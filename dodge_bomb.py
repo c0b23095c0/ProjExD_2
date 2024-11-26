@@ -58,13 +58,16 @@ def get_kk_img(sum_mv: tuple[int, int]) -> pg.Surface:
     kk2 = pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 0.9)
     kk3 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 90, 0.9)
     kk3 = pg.transform.flip(kk3, -1, 1)
-    kk4 = pg.transform.flip(kk2, 1, 1)
-    kk5 = pg.transform.flip(kk1, 1, 1)
+    kk4 = pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 0.9)
+    kk4 = pg.transform.flip(kk4, -1, 1)
+    kk5 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9)
+    kk5 = pg.transform.flip(kk5, -1, 1)
     kk6 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 45, 0.9)
-    kk7 = pg.transform.flip(kk6, 1, 1)
+    kk7 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 45, 0.9)
+    kk7 = pg.transform.flip(kk7, -1, 1)
     kk8 = pg.transform.rotozoom(kk3, 180, 1)
     kkk = kk1
-    VEC = {(0, 0): kkk, (0, -5):kk1, (-5, -5):kk2, (0, -5):kk3, (+5, -5):kk4, (+5, 0):kk5, (-5, +5):kk6, (+5, +5):kk7, (0, +5):kk8}
+    VEC = {(0, 0): kkk, (-5, 0):kk1, (-5, -5):kk2, (0, -5):kk3, (+5, -5):kk4, (+5, 0):kk5, (-5, +5):kk6, (+5, +5):kk7, (0, +5):kk8}
     return VEC[sum_mv]
 
 def main():
@@ -88,7 +91,6 @@ def main():
     vy = +5
     DELTA = {pg.K_UP:(0, -5), pg.K_DOWN:(0, +5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(+5, 0)}
 
-
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -97,7 +99,6 @@ def main():
     
         bb_imgs, bb_accs = init_bb_imgs()
         bb_img = bb_imgs[min(tmr//100, 9)]
-
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
