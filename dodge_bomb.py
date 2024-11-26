@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import time
 import pygame as pg
 
 
@@ -64,6 +65,8 @@ def main():
             vy *= -1
         bb_rct.move_ip(vx, vy)
         screen.blit(bb_img, bb_rct)
+        if kk_rct.colliderect(bb_rct):
+            return -1
         pg.display.update()
         tmr += 1
         clock.tick(50)
