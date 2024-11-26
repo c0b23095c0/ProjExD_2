@@ -24,6 +24,12 @@ def check_bound(rct):
     return yoko, tate
 
 def gameover(screen: pg.Surface) -> None:
+    """
+    引数：screen
+    戻り値：なし
+    こうかとんと爆弾が重なったとき
+    GameOverを表示しゲームを終了する関数
+    """
     kkcry_img = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 0.9)
     kkcry_rct1 = kkcry_img.get_rect()
     kkcry_rct1.center = 350, HEIGHT/2
