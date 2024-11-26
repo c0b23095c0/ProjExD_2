@@ -66,6 +66,11 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
     return bb_imgs, accs
 
 def get_kk_img(sum_mv: tuple[int, int]) -> pg.Surface:
+    """
+    引数：sum_mv
+    戻り値：sum_mvの数値に応じたこうかとんの画像pg.image
+    移動する方向に応じたこうかとんの角度を変えた画像を返す関数
+    """
     kk1 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9)
     kk2 = pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 0.9)
     kk3 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 90, 0.9)
